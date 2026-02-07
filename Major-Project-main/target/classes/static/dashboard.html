@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Student Profile</title>
+    <link rel="stylesheet" th:href="@{/loginStyle.css}">
+
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .card { background: #f9f9f9; padding: 20px; border-radius: 8px; width: 60%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 10px; text-align: left; }
+        th { background: #e7e7e7; }
+    </style>
+</head>
+
+<body>
+
+<h2>Student Profile</h2>
+
+<div class="card">
+    <h3 th:text="${student.firstName + ' ' + student.lastName}">Student Name</h3>
+
+    <p><b>Email:</b> <span th:text="${student.email}"></span></p>
+    <p><b>Roll No:</b> <span th:text="${student.id}"></span></p>
+    <p><b>Branch:</b> <span th:text="${student.branch}"></span></p>
+    <p><b>Semester:</b> <span th:text="${student.sem}"></span></p>
+
+</div>
+
+<h3>Attendance by Slots</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Subject</th>
+        <th>Slot</th>
+        <th>Total Classes</th>
+        <th>Attended</th>
+        <th>Percentage</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="att : ${attendanceList}" th:if="${attendanceList != null}">
+        <td th:text="${att.subjectName}"></td>
+        <td th:text="${att.slot}"></td>
+        <td th:text="${att.totalClasses}"></td>
+        <td th:text="${att.attendedClasses}"></td>
+        <td th:text="${((att.attendedClasses * 100) / att.totalClasses)} + '%'"></td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+
+</html>
